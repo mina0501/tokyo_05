@@ -1,12 +1,6 @@
 # Trellis based generator
 FROM pytorch/pytorch:2.7.1-cuda12.8-cudnn9-runtime
 
-ARG GITHUB_USER
-ENV GITHUB_USER=${GITHUB_USER}
-
-ARG GITHUB_TOKEN
-ENV GITHUB_TOKEN=${GITHUB_TOKEN}
-
 ENV DEBIAN_FRONTEND=noninteractive
 
 LABEL name="trellis-gen" maintainer="404gen"
