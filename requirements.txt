@@ -7,7 +7,9 @@ einops==0.8.1
 timm==1.0.20
 packaging==25.0
 
-diffusers==0.35.1
+git+https://github.com/huggingface/diffusers.git
+peft
+
 accelerate==1.10.1
 kornia==0.8.1
 xformers==0.0.31
@@ -49,3 +51,8 @@ PyYAML==6.0.2
 ninja==1.13.0
 
 utils3d @ git+https://github.com/EasternJournalist/utils3d.git
+trimesh
+
+# setup for render-env
+# pip install imageio==2.35.1 open3d==0.18.0 meshio==5.3.5
+# pip install --no-build-isolation git+https://github.com/nerfstudio-project/gsplat.git@v1.5.3

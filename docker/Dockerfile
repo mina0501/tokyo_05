@@ -59,10 +59,11 @@ RUN pip install packaging
 RUN pip install flash-attn==2.8.0.post2 --no-build-isolation --no-cache-dir
 RUN pip install flashinfer-python==0.5.2 flashinfer-cubin==0.5.2 --no-build-isolation --no-cache-dir
 RUN pip install -r requirements.txt
+RUN pip install git+https://github.com/facebookresearch/vggt.git
 
 # Copy source code after dependencies
 COPY . /app
 
 
 EXPOSE 10006
-CMD ["python",  "serve.py"]
+CMD ["python",  "src/serve.py"]

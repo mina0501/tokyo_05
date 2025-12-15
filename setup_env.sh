@@ -63,16 +63,17 @@ pip install --index-url https://download.pytorch.org/whl/cu128 torch==2.7.1 torc
 pip install -r requirements.txt
 pip install flash-attn==2.8.0.post2 --no-build-isolation --no-cache-dir
 pip install flashinfer-python==0.5.2 flashinfer-cubin==0.5.2 --no-build-isolation --no-cache-dir
+pip install git+https://github.com/facebookresearch/vggt.git
 
 # Store the path of the Conda interpreter
 CONDA_INTERPRETER_PATH=$(which python)
 
-# Generate the generation.config.js file for PM2 with specified configurations
+# Generate the validation.config.js file for PM2 with specified configurations
 cat <<EOF > generation.config.js
 module.exports = {
   apps : [{
     name: 'generation',
-    script: 'serve.py',
+    script: 'src/serve.py',
     interpreter: '${CONDA_INTERPRETER_PATH}',
     args: '--port 10006'
   }]

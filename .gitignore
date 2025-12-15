@@ -1,1 +1,4 @@
-__pycache__
+.stfolder/
+*.pyc
+__pycache__/
+.temp.ply
