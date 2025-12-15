@@ -131,22 +131,32 @@ def clean_vram() -> None:
 
 def remove_background(image: Image.Image, seed: int, prefix: str = "") -> Image.Image:
     """ Function for removing background from the image. """
-    futurs = [worker.run.remote(image) for worker in app.state.bg_removers_workers]
+    num_bg_remove = get_config("num_bg_remove")
+    futurs = [worker.run.remote(image) for worker in app.state.bg_removers_workers[:num_bg_remove]]
     results = ray.get(futurs)
+
     image0 = results[0]
-    image1 = results[1]
+    output_image = results[0]
+    image_ind = 0
+    if len(results) > 1:
+        image0 = results[0]
+        image1 = results[1]
+        output_image, image_ind = app.state.vlm_image_selector.select_with_image_selector(image0, image1, image, seed)
+
     save_image(image, f"{prefix}")
-    output_image, image_ind = app.state.vlm_image_selector.select_with_image_selector(image0, image1, image, seed)
     # rename picked image
     if image_ind == 0:
         save_image(image0, f"{prefix}_bgrm_0_win")
-        save_image(image1, f"{prefix}_bgrm_1")
+        if num_bg_remove > 1:
+            save_image(image1, f"{prefix}_bgrm_1")
     elif image_ind == 1:
         save_image(image0, f"{prefix}_bgrm_0")
-        save_image(image1, f"{prefix}_bgrm_1_win")
+        if num_bg_remove > 1:
+            save_image(image1, f"{prefix}_bgrm_1_win")
     else:
         save_image(image0, f"{prefix}_bgrm_0")
-        save_image(image1, f"{prefix}_bgrm_1")
+        if num_bg_remove > 1:
+            save_image(image1, f"{prefix}_bgrm_1")
     return output_image
 
 
