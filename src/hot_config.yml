@@ -1,0 +1,10 @@
+gen3d_model: vggt
+trellis_multi_mode: multidiffusion
+
+# gen3d_model: trellis
+# trellis_multi_mode: stochastic
+
+save_image: 0
+save_render: 0
+enhance_image: 1
+num_views: 1
