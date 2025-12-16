@@ -1,4 +1,8 @@
-.stfolder/
-*.pyc
+.venv/
 __pycache__/
-.temp.ply
+generated_outputs/
+.idea/
+.vscode/
+*.pyc
+.env
+
